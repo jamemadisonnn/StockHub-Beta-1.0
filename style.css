@@ -10,73 +10,17 @@ body {
     text-align: justify;
 }
 
-/* === Input Styles === */
-input {
-    width: 100%; 
-    outline: none;
-    font-size: 12px;
-    cursor: pointer; 
-    padding: 10px 12px;
-    box-sizing: border-box;
-    font-family: 'Inconsolata';
-    background-color: #0D1117;
-    border: 1px solid #2F353E;
-    transition: border-color 0.3s;
-}
-input:focus {
-    color: white;
-    border-color: #3698F5;
+.content-holder {
+    align-items: center;
 }
 
-/* === Text Styles === */
-p, .question-display, button {
-    font-family: 'Inconsolata';
-    color: white;
-}
-.text-blue {
-    color: #3698F5; 
-}
-.trans-50 {
-    opacity: 0.5; /* Use percentage as decimal for opacity */
-}
-.text-size_10 {
-    font-size: 10px;
-}
-.text-size_12 {
-    font-size: 12px;
-}
 
-/* === Button Styles === */
-button {
-    width: 100%; 
-    border: none; 
-    font-size: 12px;
-    cursor: pointer; 
-    padding: 10px 12px; 
-    background-color: #27853C;
-    transition: background-color 0.3s; 
-}
-button:focus, button:hover {
-    outline: none; 
-    background-color: #2D8F42;
-}
 
-/* === Game Info & Panel === */
-.game-info, .game-panel {
-    padding: 16px;
-    border: 1px solid #2F353E;
-}
-.game-panel {
-    background: #141B23;
-}
 
-#feedback {
-    margin-top: 8px; 
-}
 
-.question-display {
-    font-size: 70px;
-}
+
+
+
 
 /* Reused font-family grouped for efficiency */
 * {
@@ -84,24 +28,6 @@ button:focus, button:hover {
 }
 
 
-/* Style for select (to match input) */
-.selection-area-input {
-    width: 100%; 
-    outline: none;
-    font-size: 12px;
-    cursor: pointer; 
-    padding: 10px 12px;
-    box-sizing: border-box;
-    font-family: 'Inconsolata';
-    background-color: #0D1117;
-    border: 1px solid #2F353E;
-    color: white; /* Same text color as input */
-    appearance: none; /* Remove default arrow in some browsers */
-    transition: border-color 0.3s;
-}
-.selection-area-input:focus {
-    border-color: #3698F5;
-}
 
 
 
@@ -109,41 +35,114 @@ button:focus, button:hover {
 /* Center content horizontally and vertically */
 .main-wrapper {
     max-width: 280px;
-    margin: 0 auto; /* Center horizontally */
+    margin: 0 auto; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    height: 100vh; /* Full viewport height */
+    justify-content: center; 
+    height: 100vh; 
 }
 
-/* Style for the randomizer link-button */
-/* Updated randomizer button styles */
-.link-button {
-    width: 100%; 
-    border: none; 
-    font-size: 12px;
-    cursor: pointer; 
-    padding: 10px 12px; 
-    background-color: rgba(39, 133, 60, 0.5); /* 50% opacity */
-    transition: background-color 0.3s;
-    border: 1px solid #27853C; /* Border without opacity */
+.spacer-10{
+    height: 10px;
+}
+.spacer-20{
+    height: 20px;
+}
+.spacer-60{
+    height: 60px;
 }
 
-.link-button:focus, 
-.link-button:hover {
-    outline: none; 
-    background-color: #2D8F42; /* Darker green on hover and focus */
+.button-panel {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
+
 
 
 .logo-block {
+    display: flex;
+    width: 100%; 
     justify-content: center;
     align-items: center;
-    max-width: 150px;
 }
+
 
 .footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+
+
+
+/*Button*/
+.btn {
+  height: 140px;
+  width: 140px;
+  padding: 10px 18px;
+  font-size: 14px;
+  color: #8647FD;
+  background: #1A092F;
+  border: 2px solid #3F1D75;
+  border-radius: 18px;
+  cursor: pointer;
+  position: relative;
+  transition: background .25s ease, color .25s ease;
+  z-index: 1;
+
+  /* Center the text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #290E4B;
+  opacity: 0;
+  transition: opacity .25s ease;
+  z-index: -1;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6, #c4b5fd) border-box;
+  border: 3px solid transparent;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: -2;
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+.info {
+    max-width: 280px;
+    border: #3F1D75 2px solid;
+    border-radius: 18px;
+    padding: 20px;
 }
