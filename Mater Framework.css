@@ -1,0 +1,161 @@
+
+/* ==============================
+Master--FrameWork 
+v2.0 | 3:33AM | 12.08.24
+License: none (public domain)
+============================== */
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: normal;
+  min-height: 100vh;
+}
+
+img, picture, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* ======================== */
+
+
+/* (Font) */
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/fonts/customfont.woff2') format('woff2'),
+       url('/fonts/customfont.woff') format('woff'),
+       url('/fonts/customfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'CustomFont', sans-serif;
+}
+
+
+/* ======================== */
+/* ( VIEW SCREEN ) */
+
+
+/* View for screens below 1200px and above 1080px */
+@media (max-width: 1199px) and (min-width: 1081px) {
+  .section {
+      max-width: 1080px;
+      padding: 15px;
+      background-color: #e0e0e0; /* Example background color */
+  }
+}
+
+/* View for screens below 1080px and above 720px */
+@media (max-width: 1080px) and (min-width: 721px) {
+  .section {
+      max-width: 720px;
+      padding: 10px;
+      background-color: #d0d0d0; /* Example background color */
+  }
+}
+
+/* View for screens below 720px */
+@media (max-width: 720px) {
+  .section {
+      max-width: 100%;
+      padding: 5px;
+      background-color: #c0c0c0; /* Example background color */
+  }
+}
+
+
+/* ======================== */
+
+
+/* (Margins and Paddings) */
+.mx-8 { margin: 0px 8px; }
+.mx-16 { margin: 0px 16px; }
+.mx-24 { margin: 0px 24px; }
+.mx-32 { margin: 0px 32px; }
+
+.px-8 { padding: 0px 8px; }
+.px-16 { padding: 0px 16px; }
+.px-24 { padding: 0px 24px; }
+.px-32 { padding: 0px 32px; }
+
+
+/* Spacer System */
+.sp-40 { height: 40px;}
+.sp-80 { height: 80px;}
+.sp-120 { height: 120px;}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hide-sm { display: none; }
+  }
+  
+  @media (min-width: 769px) {
+    .hide-md { display: none; }
+  }
+
+
+
+
+/* Typography */
+.text-bold { font-weight: bold; }
+.text-right { text-align: right; }
+.text-italic { font-style: italic; }
+.text-center { text-align: center; }
+
+
+
+/* CENTER CONTENT SYSTEM */
+/* Flexbox centering */
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
+/* Grid centering */
+.center-grid {
+    display: grid;
+    place-items: center;
+}
+
+
+/* BASIC SYSTEM */
+.display-flex {display: flex;}
+.item-push {justify-content: space-between;}
+
+
+
+

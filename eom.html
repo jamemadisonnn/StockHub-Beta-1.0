@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Take Page</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+h1 { text-align: center; }
+.form-group { margin-bottom: 15px; }
+label { display: block; font-weight: bold; margin-bottom: 5px; }
+input, button { padding: 8px; font-size: 14px; }
+input[type="number"] { width: 60px; text-align: center; }
+button { margin-top: 10px; cursor: pointer; padding: 8px 12px; }
+#liveEntries { border: 1px solid #ccc; background-color: #fff; padding: 10px; max-height: 250px; overflow-y: auto; }
+.entry, .totalEntry { display: flex; justify-content: space-between; margin-bottom: 5px; padding: 5px; border-bottom: 1px solid #eee; }
+.entry button, .totalEntry button { background-color: red; color: white; border: none; padding: 2px 6px; border-radius: 4px; }
+.date-group input { margin-right: 5px; width: 70px; }
+.collapse-btn { margin-bottom: 10px; cursor: pointer; background-color: #3F51B5; color: white; border: none; padding: 5px 10px; border-radius: 5px; }
+</style>
+</head>
+<body>
+
+<h1>Stock Take Page</h1>
+
+<div class="form-group">
+  <label for="productSearch">Product Search</label>
+  <input type="text" id="productSearch" list="products" placeholder="EX: PACKTB3005 French Earl Grey">
+  <datalist id="products">
+    <option value="PACKTB3005 French Earl Grey">
+    <option value="PACKTB3006 Earl Grey">
+    <option value="PACKTB3007 Green Tea">
+    <option value="PACKTB3008 Chamomile">
+  </datalist>
+</div>
+
+<div class="form-group">
+  <label for="quantity">Quantity</label>
+  <input type="number" id="quantity" placeholder="Qty" min="0" inputmode="numeric">
+</div>
+
+<div class="form-group">
+  <label>Expiry Date</label>
+  <div class="date-group">
+    <input type="number" id="year" placeholder="YYYY" min="2000" max="2100" inputmode="numeric">
+    <input type="number" id="month" placeholder="MM" min="1" max="12" inputmode="numeric">
+    <input type="number" id="day" placeholder="DD" min="1" max="31" inputmode="numeric">
+  </div>
+</div>
+
+<div class="form-group">
+  <button type="button" onclick="addEntry()">Add Entry</button>
+  <button type="button" onclick="exportCSV()">Export CSV</button>
+</div>
+
+<div class="form-group">
+  <button class="collapse-btn" onclick="toggleLiveEntries()">Toggle Live Entries</button>
+  <div id="liveEntries">
+  </div>
+</div>
+
+<script>
+let liveEntries = [];
+
+const inputs = ['productSearch','quantity','year','month','day'];
+inputs.forEach((id, index) => {
+  const el = document.getElementById(id);
+  el.addEventListener('keydown', function(e){
+    if(e.key==='Enter'){
+      e.preventDefault();
+      if(index < inputs.length-1) document.getElementById(inputs[index+1]).focus();
+      else addEntry();
+    }
+  });
+  el.addEventListener('input', function() {
+    if(id==='year' && this.value.length===4) document.getElementById('month').focus();
+    if(id==='month' && this.value.length>=2) document.getElementById('day').focus();
+  });
+});
+
+function addEntry(){
+  const product = document.getElementById('productSearch').value.trim();
+  const quantity = parseInt(document.getElementById('quantity').value);
+  const year = document.getElementById('year').value.trim();
+  const month = document.getElementById('month').value.trim().padStart(2,'0');
+  const day = document.getElementById('day').value.trim().padStart(2,'0');
+
+  if(!product || !quantity || !year || !month || !day){
+    alert('Please fill all fields!');
+    return;
+  }
+
+  const dateStr = `${year}-${month}-${day}`;
+  const dateObj = new Date(dateStr);
+  if(isNaN(dateObj.getTime()) || dateObj.getFullYear()!=year || dateObj.getMonth()+1!=parseInt(month) || dateObj.getDate()!=parseInt(day)){
+    alert('Invalid date!');
+    return;
+  }
+
+  liveEntries.push({product, quantity, expiry: dateStr});
+  renderEntries();
+
+  document.getElementById('productSearch').value='';
+  document.getElementById('quantity').value='';
+  document.getElementById('year').value='';
+  document.getElementById('month').value='';
+  document.getElementById('day').value='';
+  document.getElementById('productSearch').focus();
+}
+
+function renderEntries(){
+  const container = document.getElementById('liveEntries');
+  container.innerHTML='';
+
+  const totals = {};
+  liveEntries.forEach(e=>{
+    if(totals[e.product]) totals[e.product]+=e.quantity;
+    else totals[e.product]=e.quantity;
+  });
+
+  for(const [prod, totalQty] of Object.entries(totals)){
+    const div = document.createElement('div');
+    div.className='totalEntry';
+    div.innerHTML=`<strong>${prod} | Total Qty: ${totalQty}</strong>`;
+    container.appendChild(div);
+  }
+
+  liveEntries.forEach((entry,index)=>{
+    const div=document.createElement('div');
+    div.className='entry';
+    div.innerHTML=`
+      <span>${entry.product} | Qty: ${entry.quantity} | Exp: ${entry.expiry}</span>
+      <button onclick="deleteEntry(${index})">Delete</button>
+    `;
+    container.appendChild(div);
+  });
+
+  container.scrollTop=container.scrollHeight;
+}
+
+function deleteEntry(index){
+  liveEntries.splice(index,1);
+  renderEntries();
+}
+
+function toggleLiveEntries(){
+  const container = document.getElementById('liveEntries');
+  container.style.display = container.style.display==='none'?'block':'none';
+}
+
+function exportCSV(){
+  const grouped = {};
+  liveEntries.forEach(entry=>{
+    const match = entry.product.match(/^([A-Za-z]+)/);
+    const cat = match?match[1]:'OTHERS';
+    if(!grouped[cat]) grouped[cat]=[];
+    grouped[cat].push(entry);
+  });
+
+  let csvContent='Product,Quantity,Expiry\n';
+  Object.keys(grouped).sort().forEach(cat=>{
+    csvContent+=`\n# Category: ${cat}\n`;
+    grouped[cat].forEach(e=>{
+      csvContent+=`${e.product},${e.quantity},${e.expiry}\n`;
+    });
+  });
+
+  const blob = new Blob([csvContent], {type:'text/csv;charset=utf-8;'});
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(blob);
+  link.download='stock_take.csv';
+  link.click();
+}
+</script>
+</body>
+</html>
