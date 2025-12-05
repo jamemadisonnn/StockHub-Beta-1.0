@@ -3,190 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="Master Reset.css">
     <link rel="stylesheet" href="Master Framework.css">
-    <title>Document</title>
+
+    <title>StockHub+</title>
+
 <style>
+
+/* ===============================
+   BASE STYLES
+================================ */
 body {
     background: #0B0414;
+    font-family: 'Inconsolata';
+    margin: 0;
 }
 
+/* Layout Wrapper */
 .main-wrapper {
     max-width: 280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
 }
 
+/* Content holder */
+.content-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Text alignment helper */
 .justified-text {
     text-align: justify;
 }
 
-.content-holder {
-    align-items: center;
-}
-
-
-
-
-
-
-
-
-
-/* Reused font-family grouped for efficiency */
-* {
-    font-family: 'Inconsolata';
-}
-
-
-
-
-
-
-/* Center content horizontally and vertically */
-.main-wrapper {
-    max-width: 280px;
-    margin: 0 auto; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    height: 100vh; 
-}
-
-.spacer-10{
-    height: 10px;
-}
-.spacer-20{
-    height: 20px;
-}
-.spacer-60{
-    height: 60px;
-}
-
-.button-panel {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-
-
+/* Logo alignment */
 .logo-block {
     display: flex;
-    width: 100%; 
+    width: 100%;
     justify-content: center;
     align-items: center;
 }
 
-
+/* Footer alignment */
 .footer {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* ===============================
+   SPACERS
+================================ */
+.spacer-10 { height: 10px; }
+.spacer-20 { height: 20px; }
+.spacer-60 { height: 60px; }
+.spacer-100 { height: 100px; }
 
+/* ===============================
+   BUTTON PANEL
+================================ */
+.button-panel {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
 
-
-
-/*Button*/
+/* ===============================
+   BUTTONS
+================================ */
 .btn {
-  height: 140px;
-  width: 140px;
-  padding: 10px 18px;
-  font-size: 14px;
-  color: #8647FD;
-  background: #1A092F;
-  border: 2px solid #3F1D75;
-  border-radius: 18px;
-  cursor: pointer;
-  position: relative;
-  transition: background .25s ease, color .25s ease;
-  z-index: 1;
+    height: 140px;
+    width: 140px;
+    padding: 10px 18px;
+    font-size: 14px;
+    color: #8647FD;
+    background: #1A092F;
+    border: 2px solid #3F1D75;
+    border-radius: 18px;
+    cursor: pointer;
+    position: relative;
+    transition: background .25s ease, color .25s ease;
+    z-index: 1;
 
-  /* Center the text */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    /* center text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none; /* For <a> buttons */
 }
 
 .btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: #290E4B;
-  opacity: 0;
-  transition: opacity .25s ease;
-  z-index: -1;
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: #290E4B;
+    opacity: 0;
+    transition: opacity .25s ease;
+    z-index: -1;
 }
 
 .btn:hover::before {
-  opacity: 1;
+    opacity: 1;
 }
 
 .btn::after {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, #a78bfa, #8b5cf6, #c4b5fd) border-box;
-  border: 3px solid transparent;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity .35s ease;
-  z-index: -2;
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6, #c4b5fd) border-box;
+    border: 3px solid transparent;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .35s ease;
+    z-index: -2;
 }
 
 .btn:hover::after {
-  opacity: 1;
+    opacity: 1;
 }
 
-
-
-
-
-
-
-
+/* ===============================
+   INFO BOX
+================================ */
 .info {
     max-width: 280px;
-    border: #3F1D75 2px solid;
+    border: 2px solid #3F1D75;
     border-radius: 18px;
     padding: 20px;
 }
 
-</style)
+</style>
 </head>
-<body>
-    <div class="main-wrapper">
-        <div class="content-holder">
-            <div class="spacer-100"></div>
-            <div class="logo-block">
-                <img src="StockHub -- Alternate Logo.svg" style="width:150px !important; height:auto;">
-            </div>
-            <div class="spacer-60"></div>
-            <div class="button-panel">
-                <button class="btn">StockTake</button>
-                <button class="btn">Warehouse</button>
-            </div>
-            <div class="spacer-20"></div>
-            <div class="button-panel">
-                <a href="page.html" class="btn">Export</a>
-                <a href="eom.html" class="btn">EOM</a>
-            </div>
-            <div class="spacer-20"></div>
-            <div class="info">
-                <h1 style="font-size:15px; color:#8647FD;">StockHub+ | Version 1.0.0</h1>
-                    <div class="spacer-10"></div>
-                <p style="font-size:11px; color:#B3AEF8;">Developed by James Madison, this system was designed to assist fellow co-workers especially Laily Mastura ~ </p>
-                    <div class="spacer-10"></div>
-                <p style="font-size:11px; color:#B3AEF8;">By enhancing speed, teamwork, and efficiency. It allows tasks to be completed in less time and with less effort by distributing the workload across multiple staff members and synchronizing progress across multiple devices.</p>
-            </div>
-        </div>
-    </div>
 
-      
+<body>
+
+<div class="main-wrapper">
+    <div class="content-holder">
+
+        <div class="spacer-100"></div>
+
+        <div class="logo-block">
+            <img src="StockHub -- Alternate Logo.svg" style="width:150px; height:auto;">
+        </div>
+
+        <div class="spacer-60"></div>
+
+        <div class="button-panel">
+            <button class="btn">StockTake</button>
+            <button class="btn">Warehouse</button>
+        </div>
+
+        <div class="spacer-20"></div>
+
+        <div class="button-panel">
+            <a href="page.html" class="btn">Export</a>
+            <a href="eom.html" class="btn">EOM</a>
+        </div>
+
+        <div class="spacer-20"></div>
+
+        <div class="info">
+            <h1 style="font-size:15px; color:#8647FD;">StockHub+ | Version 1.0.0</h1>
+
+            <div class="spacer-10"></div>
+
+            <p style="font-size:11px; color:#B3AEF8;">
+                Developed by James Madison, this system was designed to assist fellow co-workers,
+                especially Laily Mastura ~
+            </p>
+
+            <div class="spacer-10"></div>
+
+            <p style="font-size:11px; color:#B3AEF8;">
+                By enhancing speed, teamwork, and efficiency. It allows tasks to be completed in less
+                time and with less effort by distributing the workload across multiple staff members
+                and synchronizing progress across multiple devices.
+            </p>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
